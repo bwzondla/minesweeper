@@ -102,7 +102,7 @@ export class BoardComponent implements OnInit {
     }
 
     return bombCount;
-  }
+  } 
 
   isBomb(tile: Tile): number{
     return tile.isBomb ? 1 : 0; 
