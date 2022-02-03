@@ -1,0 +1,7 @@
+<mat-grid-list cols="{{this.width}}" rowHeight="50px" >
+    <div *ngFor="let array of this.grid">
+        <mat-grid-tile cols="1" *ngFor="let tile of array">
+            <Tile class="tile" (changeEvent)="tileClicked($event)" [displayTile] ="tile"></Tile>
+        </mat-grid-tile>
+    </div>
+</mat-grid-list >
