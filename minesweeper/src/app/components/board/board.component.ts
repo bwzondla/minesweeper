@@ -38,8 +38,14 @@ export class BoardComponent implements OnInit {
       }
 
     }
-
+ 
     this.placeMines();
+
+    for( let i = 0; i < this.width; i++){
+      for(let j = 0; j < this.height; j++){
+        this.grid[i][j].displayNumber = this.getNeighborBombs(i, j);
+      }
+    }
   }
 
 
@@ -67,13 +73,43 @@ export class BoardComponent implements OnInit {
       this.openDialog();
       this.ngOnInit();
     } else {
-      tile.displayNumber = this.getNeighborBombs(event.x, event.y);
+      this.revealDFS(event.x, event.y);
     }
+
+    if (tile.displayNumber === 0){
+    }   
   }
 
+  revealDFS(x: number, y: number){
+    if(this.grid[x][y].displayNumber != 0 || this.grid[x][y].isRevealed === true){
+      console.log(this.grid[x][y].isRevealed)
+      this.grid[x][y].isRevealed = true;
+
+      return
+    }
+    this.grid[x][y].isRevealed = true;
+
+    if(x - 1 >= 0){
+      this.revealDFS(x - 1, y)
+    }
+
+    if(x + 1 < this.width){
+      this.revealDFS(x +1, y)
+    }
+
+    if(y - 1 >= 0){
+      this.revealDFS(x , y - 1);
+    }
+
+    if(y + 1 < this.height){
+      this.revealDFS(x , y + 1);
+    }
+
+  }
 
   getNeighborBombs(x: number, y: number) : number{
     let bombCount = 0;
+    if(this.grid[x][y].isBomb){ return -1;}
     if( x - 1 > 0){
       if( y - 1 > 0){
         bombCount += this.isBomb(this.grid[x - 1][y - 1]);
@@ -93,11 +129,11 @@ export class BoardComponent implements OnInit {
 
     if( x + 1 < this.width){
       if( y - 1 > 0){
-        bombCount += this.isBomb(this.grid[x - 1][y - 1]);
+        bombCount += this.isBomb(this.grid[x + 1][y - 1]);
       }
-      bombCount += this.isBomb(this.grid[x - 1][y]);
-      if(y + 1 < this.height){
-        bombCount += this.isBomb(this.grid[x - 1][y + 1]);
+      bombCount += this.isBomb(this.grid[x + 1][y]);
+      if(y + 1 < this.height){ 
+        bombCount += this.isBomb(this.grid[x + 1][y + 1]);
       }
     }
 

@@ -1,3 +1,6 @@
 <div class = "tile" (click)="sendChange()">
-    {{displayTile.displayNumber}}
+    <div *ngIf="displayTile.isRevealed">
+        {{displayTile.displayNumber}}
+
+    </div>
 </div>
