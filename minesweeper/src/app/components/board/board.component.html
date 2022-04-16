@@ -1,7 +1,18 @@
-<mat-grid-list cols="{{this.width}}" rowHeight="50px" >
-    <div *ngFor="let array of this.grid">
-        <mat-grid-tile cols="1" *ngFor="let tile of array">
-            <Tile class="tile" (changeEvent)="tileClicked($event)" [displayTile] ="tile"></Tile>
-        </mat-grid-tile>
+<div>
+    <div style="text-align: center;">
+        <h1>MINESWEEPER</h1>
+        <p>Totally not an excuse to learn angular</p>
     </div>
-</mat-grid-list >
+    <div class="grid">
+        <mat-grid-list cols="{{this.width}}" rowHeight="50px">
+            <div *ngFor="let array of this.grid">
+                <mat-grid-tile cols="1" *ngFor="let tile of array">
+                    <Tile class="tile" (changeEvent)="tileClicked($event)" [displayTile] ="tile"></Tile>
+                </mat-grid-tile>
+            </div>
+        </mat-grid-list >
+    </div>
+    <div class="restartButton">
+        <button (click)="ngOnInit()"> Restart The Game!</button>
+    </div>
+</div>

@@ -1,6 +1,9 @@
-<div class = "tile" (click)="sendChange()">
+<div *ngIf="displayTile.isRevealed?calculateToggle():'other'"></div>
+<div (click)="sendChange()" (contextmenu)="onRightClick()" [ngClass] ="{'hidden': toggle === 0, 'safe': toggle > 0, 'bomb': toggle < 0}">
     <div *ngIf="displayTile.isRevealed">
         {{displayTile.displayNumber}}
-
+    </div>
+    <div *ngIf="markedBomb" style="text-align: center;">
+        BOMB
     </div>
 </div>
